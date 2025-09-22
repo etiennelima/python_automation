@@ -1,12 +1,12 @@
 import pyautogui
 import pandas as pd
+import time
 
 
 produtos = pd.read_csv("produtos.csv")
 
 print(produtos)
-
-pyautogui.PAUSE = 5
+pyautogui.PAUSE = 3
 
 #abrindo sistema
 pyautogui.press("win")
@@ -26,6 +26,7 @@ pyautogui.press("enter")
 
 #cadastrando os produtos
 pyautogui.press("esc")
+pyautogui.PAUSE = 1
 
 for linha in produtos.index:
     
@@ -42,10 +43,12 @@ for linha in produtos.index:
     pyautogui.press("tab")
     pyautogui.write(str(produtos["custo"][linha]))
     pyautogui.press("tab")
-    if produtos["obs"][linha] == "nan":
-        pyautogui.press("tab")
-    else:
-        pyautogui.write(produtos["obs"][linha])
+    if pd.isna(produtos["obs"][linha]):
         pyautogui.press("enter")
+    else:
+        pyautogui.write(str(produtos["obs"][linha]))
+        pyautogui.press("enter")
+    #Celular    pyautogui.click(x=632, y=603)
+    #pyautogui.click(x=767, y=613)
     pyautogui.scroll(1000)
 
